@@ -20,15 +20,15 @@ FROM debian:bullseye-slim
 RUN apt-get update && apt-get install -y tzdata && apt-get clean && \
     mkdir /app && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем рабочую директорию
+# set dir
 WORKDIR /app
 
-# Копируем базу данных и бинарный файл из билд-образа
+# copy from prebuild
 COPY --from=builder /app/tracker .
 COPY tracker.db .
 
-# Указываем порт, который использует приложение (при необходимости)
+# Port
 EXPOSE 8080
 
-# Запуск приложения
+# Start
 CMD ["./tracker"]
